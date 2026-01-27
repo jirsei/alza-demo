@@ -1,0 +1,111 @@
+@use '@/styles/variables' as v;
+
+.product-card {
+  $product-spacing: 4px;
+
+  min-width: calc(50% - 2 * $product-spacing);
+  max-width: calc(50% - 2 * $product-spacing);
+  height: 550px;
+  background-color: v.$secondary-page-background-color;
+  // border: 1px solid gray;
+  margin: $product-spacing;
+
+  & .product-card-top {
+    mask-image: linear-gradient(to bottom, black 90%, transparent);
+  }
+
+  & .product-name {
+    color: v.$primary-text-color;
+  }
+
+  & .product-description {
+    width: 100%;
+    color: v.$secondary-text-color;
+    font-size: small;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  & .product-image {
+    position: relative;
+    // background-color: v.$secondary-page-background-color;
+
+    & img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1;
+      object-fit: contain;
+    }
+
+    & .product-rating {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 70%;
+    }
+  }
+
+  & .product-price {
+    & > .actual {
+      color: v.$price-text-color;
+      line-height: 1rem;
+    }
+
+    & > .original {
+      color: v.$secondary-text-color;
+      line-height: 1rem;
+      font-size: small;
+      display: inline-block;
+      position: relative;
+    }
+
+    & > .original::after {
+      content: '';
+      width: 100%;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      border-bottom: 1px solid currentColor;
+      transform: skewY(-10deg);
+    }
+  }
+
+  & .product-actions {
+  }
+
+  & .product-stock {
+    color: v.$primary-text-color;
+    font-weight: bold;
+    font-size: small;
+  }
+
+  @media only screen and (min-width: 576px) {
+    /* Custom width for small devices (≥576px) */
+    min-width: calc(50% - 2 * $product-spacing);
+    max-width: calc(50% - 2 * $product-spacing);
+  }
+
+  @media only screen and (min-width: 768px) {
+    /* Custom width for medium devices (≥768px) */
+    min-width: calc(33.3% - 2 * $product-spacing);
+    max-width: calc(33.3% - 2 * $product-spacing);
+  }
+
+  @media only screen and (min-width: 992px) {
+    /* Custom width for large devices (≥992px) */
+    min-width: calc(25% - 2 * $product-spacing);
+    max-width: calc(25% - 2 * $product-spacing);
+  }
+
+  @media only screen and (min-width: 1200px) {
+    /* Custom width for extra large devices (≥1200px) */
+    min-width: calc(20% - 2 * $product-spacing);
+    max-width: calc(20% - 2 * $product-spacing);
+  }
+
+  @media only screen and (min-width: 1400px) {
+    /* Custom width for extra extra large devices (≥1400px) */
+    min-width: calc(16.6% - 2 * $product-spacing);
+    max-width: calc(16.6% - 2 * $product-spacing);
+  }
+}

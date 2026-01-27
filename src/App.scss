@@ -1,0 +1,32 @@
+@use '@/styles/variables' as v;
+
+#root {
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  // text-align: center;
+  color: v.$primary-text-color;
+}
+
+.row-header {
+  width: 100%;
+  background-color: v.$header-background-color;
+  // position: sticky;
+  // top: 0;
+}
+
+.row-content {
+  width: 100%;
+  height: 100%;
+  background-color: v.$app-background-color;
+  background: v.$app-background;
+
+  & > .container {
+    border-radius: 5px 5px 0 0;
+    border-top: 5px solid v.$primary-color;
+    box-shadow: 0 8px 8px 0;
+    background-color: v.$primary-page-background-color;
+  }
+}

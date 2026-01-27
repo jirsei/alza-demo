@@ -1,0 +1,39 @@
+.star-rating {
+  width: 100%;
+  height: auto;
+  position: relative;
+  padding-top: 20%;
+
+  & > .stars {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    height: 100%;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+  }
+
+  & > .empty-stars-border {
+    & > .star {
+      filter: invert(100%) sepia(29%) saturate(5757%) hue-rotate(184deg)
+        brightness(141%) contrast(118%);
+    }
+  }
+
+  & > .empty-stars {
+    & > .star {
+      scale: 0.95;
+      filter: invert(23%) sepia(0%) saturate(1452%) hue-rotate(138deg)
+        brightness(96%) contrast(91%);
+    }
+  }
+
+  & > .full-stars {
+    & > .star {
+      scale: 0.9;
+      filter: invert(95%) sepia(59%) saturate(4084%) hue-rotate(324deg)
+        brightness(105%) contrast(106%);
+    }
+  }
+}
