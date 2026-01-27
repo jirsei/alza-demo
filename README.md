@@ -1,33 +1,35 @@
 # alza-demo
 
+## How to run
 
-# ----- How to run -----
-# Prerequisites
-Node.js (created with v24.13.0)
+**Prerequisites**
 
-# Install PNPM globally
+- Node.js (created with v24.13.0)
+
+**Install PNPM globally**
+
+```
 npm install -g pnpm
+```
 
-# Install all dependencies from package.json
+**Install all dependencies from package.json**
+
+```
 pnpm install
+```
 
-# Start a project in dev mode
+**Start a project in dev mode**
+
+```
 pnpm run dev
+```
 
+#
 
+#
 
+# // TODO delete this:
 
-
-
-
-
-
-
-
-
-
-
-# TODO delete this:
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
@@ -72,15 +74,15 @@ export default defineConfig([
       // other options...
     },
   },
-])
+]);
 ```
 
 You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
 ```js
 // eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+import reactX from 'eslint-plugin-react-x';
+import reactDom from 'eslint-plugin-react-dom';
 
 export default defineConfig([
   globalIgnores(['dist']),
@@ -101,5 +103,5 @@ export default defineConfig([
       // other options...
     },
   },
-])
+]);
 ```
