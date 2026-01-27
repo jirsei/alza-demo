@@ -17,8 +17,8 @@ function App() {
           <AppHeader />
         </Container>
       </div>
-      <div id="app-row-content" className="row-content">
-        <Container className="h-100">
+      <div id="app-row-content" className="row-content flex-grow-1">
+        <Container>
           <CategoryPage />
         </Container>
       </div>

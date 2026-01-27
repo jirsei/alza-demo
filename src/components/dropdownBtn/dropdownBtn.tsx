@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/esm/Button';
 
 interface DropdownBtnOption {
   name: string;
-  action: Function;
+  action: () => void;
 }
 
 interface DropdownBtnProps {

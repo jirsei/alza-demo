@@ -19,7 +19,7 @@ function ProductCard({ product }: ProductCardProps) {
   const dropdownOptions = optionNames.map((value: string, _index: number) => ({
     name: value,
     action: () => {
-      console.log(value + ' click on ' + product.name);
+      console.log(value + ' click for ' + product.name);
     },
   }));
 
