@@ -1,4 +1,4 @@
-import { Col, Row } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
 import './ProductCard.scss';
 import StarRating from '@/components/starRating/StarRating';
 import type { Product } from '@/types/product';

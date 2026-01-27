@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import './StarRating.scss';
 import starIcon from '@/assets/star-icon.png';
 

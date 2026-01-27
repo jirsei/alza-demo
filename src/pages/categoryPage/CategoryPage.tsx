@@ -32,7 +32,6 @@ function CategoryPage() {
     <div className="category-page">
       <Row id="category-page-header" className="p-4 mt-3">
         <h3 className="category-page-name p-0">{categoryName}</h3>
-        {/* <h4 className="category-page-name">{categoryName}</h4> */}
       </Row>
       <Row id="category-page-subcategories" className="p-3 px-4">
         Subcategories
