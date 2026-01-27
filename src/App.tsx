@@ -1,14 +1,26 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// import { useState } from 'react'
+import { Container } from 'react-bootstrap';
+import './App.scss';
+import AppHeader from './components/appHeader/AppHeader';
+import CategoryPage from './pages/categoryPage/CategoryPage';
 
 function App() {
-  const [count, setCount] = useState(0)
+  // const [count, setCount] = useState(0)
 
   return (
     <>
-      <div>
+      <div id="app-row-header" className="row-header">
+        <Container className="p-0">
+          <AppHeader />
+        </Container>
+      </div>
+      <div id="app-row-content" className="row-content">
+        <Container className="h-100">
+          <CategoryPage />
+        </Container>
+      </div>
+
+      {/* <div>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
@@ -27,9 +39,9 @@ function App() {
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
-      </p>
+      </p> */}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
