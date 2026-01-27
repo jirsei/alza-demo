@@ -1,3 +1,7 @@
-.logo-img {
-  width: 300px;
+.app-header {
+  height: 100px;
+
+  & .logo-img {
+    width: 300px;
+  }
 }
