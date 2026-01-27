@@ -1,0 +1,28 @@
+@use '@/styles/variables' as v;
+
+.product-tabs {
+  width: 100%;
+  border-bottom: 1px inset v.$primary-color;
+  position: relative;
+
+  & .product-tabs-btns {
+    position: absolute;
+    bottom: -1px;
+
+    & .product-tab {
+      min-width: 150px;
+      background-color: v.$secondary-bg-color;
+      color: v.$primary-color;
+      border-radius: 5px 5px 0 0;
+      margin-left: -1px;
+      padding-top: 5px;
+
+      &.active-tab {
+        padding-top: 0;
+        background-color: v.$primary-bg-color;
+        border-bottom: 0;
+        border-top: 5px solid v.$primary-color;
+      }
+    }
+  }
+}

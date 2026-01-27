@@ -14,32 +14,28 @@ interface DropdownBtnProps {
 }
 
 function DropdownBtn({ text, options, width = 'auto' }: DropdownBtnProps) {
-  const [popupVisible, setPopupVisible] = useState<boolean>(false);
-  const [optionsElements, setOptionsElements] = useState<JSX.Element[] | null>(
-    null,
-  );
   const popupRef = useRef<HTMLDivElement>(null);
+
+  const [popupVisible, setPopupVisible] = useState<boolean>(false);
+
+  const optionsElements = options.map(
+    (value: DropdownBtnOption, index: number) => (
+      <Button
+        className="option-btn d-flex justify-content-start text-nowrap"
+        key={index}
+        onClick={() => {
+          value.action();
+          toggleOptions();
+        }}
+      >
+        {value.name}
+      </Button>
+    ),
+  );
 
   const toggleOptions = () => {
     setPopupVisible((prev) => !prev);
   };
-
-  useEffect(() => {
-    setOptionsElements(
-      [...options].map((value: DropdownBtnOption, index: number) => (
-        <Button
-          className="option-btn d-flex justify-content-start text-nowrap"
-          key={index}
-          onClick={() => {
-            value.action(value);
-            toggleOptions();
-          }}
-        >
-          {value.name}
-        </Button>
-      )),
-    );
-  }, [options]);
 
   useEffect(() => {
     if (popupVisible) {
