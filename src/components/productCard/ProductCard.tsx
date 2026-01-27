@@ -1,13 +1,28 @@
-import { Col } from 'react-bootstrap';
 import './ProductCard.scss';
+import Col from 'react-bootstrap/esm/Col';
 import StarRating from '@/components/starRating/StarRating';
 import type { Product } from '@/types/product';
+import DropdownBtn from '@/components/dropdownBtn/dropdownBtn';
 
 interface ProductCardProps {
   product: Product;
 }
 
 function ProductCard({ product }: ProductCardProps) {
+  const optionNames = [
+    'Koupit zrychleně',
+    'Porovnat',
+    'Hlídat',
+    'Přidat do seznamu',
+  ];
+
+  const dropdownOptions = optionNames.map((value: string, _index: number) => ({
+    name: value,
+    action: () => {
+      console.log(value + ' click on ' + product.name);
+    },
+  }));
+
   return (
     <Col className="product-card p-3 py-4 d-flex flex-column justify-content-between">
       <div className="product-card-top mb-2 flex-grow-1 overflow-hidden">
@@ -30,8 +45,12 @@ function ProductCard({ product }: ProductCardProps) {
             <div className="actual m-0 p-0">3 453 Kč</div>
             <div className="original m-0 p-0">3 453 Kč</div>
           </div>
-          <div className="product-actions p-0 col-7 overflow-hidden text-nowrap align-content-center border">
-            Koupit
+          <div className="product-actions p-0 col-7 align-content-center">
+            <DropdownBtn
+              text={'Koupit'}
+              options={dropdownOptions}
+              width="100%"
+            ></DropdownBtn>
           </div>
         </div>
         <div

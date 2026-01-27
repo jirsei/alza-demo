@@ -1,0 +1,26 @@
+@use 'sass:color';
+@use '@/styles/variables' as v;
+
+.btn {
+  color: v.$secondary-bg-color;
+  background-color: v.$secondary-color;
+  border-color: v.$secondary-color;
+
+  &:hover {
+    color: v.$secondary-bg-color;
+    background-color: color.adjust(v.$secondary-color, $lightness: -5%);
+    border-color: color.adjust(v.$secondary-color, $lightness: -5%);
+  }
+
+  &:first-child:active {
+    color: v.$secondary-bg-color;
+    background-color: v.$secondary-color;
+    border-color: v.$secondary-color;
+  }
+
+  &.disabled {
+    color: v.$secondary-bg-color;
+    background-color: v.$neutral-color;
+    border-color: v.$neutral-color;
+  }
+}

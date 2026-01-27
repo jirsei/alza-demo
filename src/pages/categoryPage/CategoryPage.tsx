@@ -1,5 +1,5 @@
-import { Row } from 'react-bootstrap';
 import './CategoryPage.scss';
+import Row from 'react-bootstrap/esm/Row';
 import ProductCard from '@/components/productCard/ProductCard';
 import { getProducts } from '@/api/productsApi';
 import { useEffect, useState, type ReactNode } from 'react';

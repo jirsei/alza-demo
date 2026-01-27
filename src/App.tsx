@@ -1,5 +1,5 @@
-import { Container } from 'react-bootstrap';
 import './App.scss';
+import Container from 'react-bootstrap/esm/Container';
 import AppHeader from './components/appHeader/AppHeader';
 import CategoryPage from './pages/categoryPage/CategoryPage';
 
