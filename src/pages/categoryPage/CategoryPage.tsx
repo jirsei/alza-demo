@@ -7,13 +7,9 @@ import type { Product } from '@/types/product';
 import useProductsStore, { sortProducts } from '@/stores/ProductsStore';
 import Subcategories from '@/components/subcategories/Subcategories';
 import ProductTabs from '@/components/productTabs/ProductTabs';
+import Carousel from '@/components/carousel/Carousel';
 
 function CategoryPage() {
-  const [productCards, setProductCards] = useState<ReactNode[] | null>(null);
-  const [placeholderCards, setPlaceholderCards] = useState<ReactNode[] | null>(
-    null,
-  );
-
   const { products, category, loading, sortType, fetchProducts } =
     useProductsStore();
 
@@ -22,40 +18,42 @@ function CategoryPage() {
     [products, sortType],
   );
 
+  const carouselProducts = useMemo(
+    () => sortProducts(products, 'best').slice(0, 4), //TODO change to like 10
+    [products],
+  );
+
+  // transform products into cards
+  const productCards = [...sortedProducts].map(
+    (value: Product, index: number) => (
+      <ProductCard product={value} key={index}></ProductCard>
+    ),
+  );
+
+  // generate loading placeholders
+  const placeholderCards = [...Array(24)].map(
+    (_value: undefined, index: number) => (
+      <ProductCardPlaceholder key={index}></ProductCardPlaceholder>
+    ),
+  );
+
   // load products
   useEffect(() => {
     fetchProducts();
   }, []);
-
-  // generate loading placeholders
-  useEffect(() => {
-    setPlaceholderCards(
-      [...Array(24)].map((_value: undefined, index: number) => (
-        <ProductCardPlaceholder key={index}></ProductCardPlaceholder>
-      )),
-    );
-  }, []);
-
-  // transform products into cards
-  useEffect(() => {
-    if (sortedProducts !== null) {
-      const cards = [...sortedProducts].map((value: Product, index: number) => (
-        <ProductCard product={value} key={index}></ProductCard>
-      ));
-      setProductCards(cards);
-    }
-  }, [sortedProducts]);
 
   return (
     <div className="category-page">
       <Row className="category-page-name p-4 mt-3">
         <h3 className="p-0">{!category ? '\u00A0' : category}</h3>
       </Row>
-      <Row className="category-page-subcategories p-3 px-4">
+      <Row className="category-page-subcategories p-3 pb-5 px-4">
         <Subcategories></Subcategories>
       </Row>
-      <Row className="category-page-carousel p-3 px-4">Carousel</Row>
-      <Row className="category-page-tabs p-3 px-0 pb-0">
+      <Row className="category-page-carousel p-0">
+        <Carousel products={carouselProducts}></Carousel>
+      </Row>
+      <Row className="category-page-tabs p-0">
         <ProductTabs></ProductTabs>
       </Row>
       <Row className="category-page-products p-3">

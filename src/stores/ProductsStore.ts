@@ -33,7 +33,7 @@ interface ProductsState {
   setSortType: (sort: SortType) => void;
 }
 
-const useProductsStore = create<ProductsState>((set) => ({
+const useProductsStore = create<ProductsState>((set, get) => ({
   products: [],
   category: '',
   loading: false,
@@ -44,23 +44,25 @@ const useProductsStore = create<ProductsState>((set) => ({
   setSortType: (sortType) => set({ sortType }),
 
   fetchProducts: async () => {
-    set({ loading: true, error: null });
+    if (!get().loading) {
+      set({ loading: true, error: null });
 
-    try {
-      const res = await getProducts();
+      try {
+        const res = await getProducts();
 
-      set({
-        category: res.breadcrumbs[0]?.category?.name || '',
-        products: res.data || [],
-        loading: false,
-      });
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
-      set({
-        error: err.response?.data?.error || 'Something went wrong',
-        loading: false,
-      });
-      console.error(err);
+        set({
+          category: res.breadcrumbs[0]?.category?.name || '',
+          products: res.data || [],
+          loading: false,
+        });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (err: any) {
+        set({
+          error: err.response?.data?.error || 'Something went wrong',
+          loading: false,
+        });
+        console.error(err);
+      }
     }
   },
 }));

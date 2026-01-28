@@ -1,0 +1,14 @@
+@use '@/styles/variables' as v;
+@use './carouselCard/CarouselCard.scss' as carouselCard;
+
+.carousel {
+  width: 100%;
+  background-color: v.$primary-color;
+  // border: 1px solid v.$primary-color;
+
+  & > .cards-row {
+    height: carouselCard.$carousel-card-height;
+    overflow: hidden;
+    position: relative;
+  }
+}

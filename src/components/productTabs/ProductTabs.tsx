@@ -15,7 +15,7 @@ function ProductTabs() {
   ];
 
   return (
-    <div className="product-tabs px-4 mt-5">
+    <div className="product-tabs px-4 mt-5 py-4">
       <div className="product-tabs-btns d-flex align-content-end">
         {tabs.map((value, index) => (
           <Button

@@ -1,0 +1,56 @@
+@use '@/styles/variables' as v;
+
+$carousel-card-height: 400px;
+$carousel-card-width: 200px;
+
+.carousel-card {
+  min-width: $carousel-card-width;
+  max-width: $carousel-card-width;
+  height: $carousel-card-height;
+  background-color: v.$secondary-page-background-color;
+  border-radius: 5px;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  transition: all 0.3s ease;
+
+  & .product-card-top {
+    mask-image: linear-gradient(to bottom, black 90%, transparent);
+  }
+
+  & .product-image {
+    // background-color: v.$secondary-page-background-color;
+
+    & img {
+      width: 80%;
+      height: auto;
+      aspect-ratio: 1;
+      object-fit: contain;
+    }
+  }
+
+  & .product-name {
+    color: v.$primary-text-color;
+  }
+
+  & .product-rating {
+    left: 0;
+    width: 70%;
+  }
+
+  & .product-description {
+    width: 100%;
+    color: v.$secondary-text-color;
+    font-size: small;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  & .product-price {
+    & > .actual {
+      color: v.$price-text-color;
+      line-height: 1rem;
+    }
+  }
+}
