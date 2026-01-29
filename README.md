@@ -23,3 +23,9 @@ pnpm install
 ```
 pnpm run dev
 ```
+
+**Open in a chrome with --disable-web-security flag to ignore CORS and load data**
+
+```
+"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --user-data-dir="%LOCALAPPDATA%\Google\Chrome\No-Cors User Data" --disable-web-security
+```
