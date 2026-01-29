@@ -52,7 +52,7 @@ function Carousel({ products }: CarouselProps) {
   useEffect(() => {
     function handleWindowResize() {
       if (cardsRowRef.current) {
-        console.log('ref width: ' + cardsRowRef.current.clientWidth);
+        console.log('ref width:', cardsRowRef.current.clientWidth);
         setVisibleWidthPx(cardsRowRef.current.clientWidth);
       }
     }
@@ -68,14 +68,24 @@ function Carousel({ products }: CarouselProps) {
 
   return (
     <Col className="carousel p-4">
-      <Button className="page-btn page-minus" onClick={() => setPage(page - 1)}>
+      <Button
+        className="page-btn page-minus"
+        onClick={() => {
+          setPage(page - 1);
+        }}
+      >
         <span className="btn-arrow ml-auto">◄</span>
       </Button>
       <div ref={cardsRowRef} className="cards-row d-flex flex-row">
         {products.length > 0 ? cards : ''}
       </div>
 
-      <Button className="page-btn page-plus" onClick={() => setPage(page + 1)}>
+      <Button
+        className="page-btn page-plus"
+        onClick={() => {
+          setPage(page + 1);
+        }}
+      >
         <span className="btn-arrow ml-auto">►</span>
       </Button>
     </Col>

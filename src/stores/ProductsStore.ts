@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import type { Product } from '@/types/product';
 import { getProducts } from '@/api/productsApi';
+import axios from 'axios';
 
 export type SortType = 'top' | 'best' | 'priceAsc' | 'priceDesc';
 
@@ -27,9 +28,8 @@ interface ProductsState {
   loading: boolean;
   error: string | null;
   sortType: SortType;
-  sortedProducts: Product[];
 
-  fetchProducts: () => void;
+  fetchProducts: () => Promise<void>;
   setSortType: (sort: SortType) => void;
 }
 
@@ -39,30 +39,39 @@ const useProductsStore = create<ProductsState>((set, get) => ({
   loading: false,
   error: null,
   sortType: 'top',
-  sortedProducts: [],
 
-  setSortType: (sortType) => set({ sortType }),
+  setSortType: (sortType) => {
+    set({ sortType });
+  },
 
   fetchProducts: async () => {
-    if (!get().loading) {
-      set({ loading: true, error: null });
+    const { loading } = get();
+    if (loading) return;
 
-      try {
-        const res = await getProducts();
+    console.log('fetching products');
 
-        set({
-          category: res.breadcrumbs[0]?.category?.name || '',
-          products: res.data || [],
-          loading: false,
-        });
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (err: any) {
-        set({
-          error: err.response?.data?.error || 'Something went wrong',
-          loading: false,
-        });
-        console.error(err);
+    set({ loading: true, error: null });
+
+    try {
+      const res = await getProducts();
+
+      set({
+        category: res.breadcrumbs[0]?.category?.name || '',
+        products: res.data,
+        loading: false,
+      });
+    } catch (err: unknown) {
+      let errorMessage = 'Something went wrong';
+
+      if (axios.isAxiosError<{ error?: string }>(err)) {
+        errorMessage = err.response?.data.error ?? errorMessage;
       }
+
+      set({
+        error: errorMessage,
+        loading: false,
+      });
+      console.error(err);
     }
   },
 }));

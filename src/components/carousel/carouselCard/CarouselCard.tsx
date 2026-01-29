@@ -12,7 +12,7 @@ function CarouselCard({ product, position }: CarouselCardProps) {
   return (
     <Col
       className="carousel-card p-3 py-4 d-flex flex-column justify-content-between"
-      style={{ left: position + 'px' }}
+      style={{ left: position }}
     >
       <div className="product-card-top mb-2 flex-grow-1 overflow-hidden">
         <div className="product-image m-0 mb-2 d-flex justify-content-center">

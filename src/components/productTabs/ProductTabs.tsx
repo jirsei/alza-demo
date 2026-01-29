@@ -20,9 +20,7 @@ function ProductTabs() {
         {tabs.map((value, index) => (
           <Button
             key={index}
-            className={
-              'product-tab ' + (sortType == value.value ? 'active-tab' : '')
-            }
+            className={'product-tab ' + (sortType == value.value ? 'active-tab' : '')}
             onClick={() => {
               setSortType(value.value as SortType);
             }}

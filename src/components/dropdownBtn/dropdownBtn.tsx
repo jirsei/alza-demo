@@ -1,5 +1,5 @@
 import './dropdownBtn.scss';
-import { useEffect, useRef, useState, type JSX } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Button from 'react-bootstrap/esm/Button';
 
 interface DropdownBtnOption {
@@ -18,20 +18,18 @@ function DropdownBtn({ text, options, width = 'auto' }: DropdownBtnProps) {
 
   const [popupVisible, setPopupVisible] = useState<boolean>(false);
 
-  const optionsElements = options.map(
-    (value: DropdownBtnOption, index: number) => (
-      <Button
-        className="option-btn d-flex justify-content-start text-nowrap"
-        key={index}
-        onClick={() => {
-          value.action();
-          toggleOptions();
-        }}
-      >
-        {value.name}
-      </Button>
-    ),
-  );
+  const optionsElements = options.map((value: DropdownBtnOption, index: number) => (
+    <Button
+      className="option-btn d-flex justify-content-start text-nowrap"
+      key={index}
+      onClick={() => {
+        value.action();
+        toggleOptions();
+      }}
+    >
+      {value.name}
+    </Button>
+  ));
 
   const toggleOptions = () => {
     setPopupVisible((prev) => !prev);
@@ -40,10 +38,7 @@ function DropdownBtn({ text, options, width = 'auto' }: DropdownBtnProps) {
   useEffect(() => {
     if (popupVisible) {
       const handleClick = (event: MouseEvent) => {
-        if (
-          popupRef.current &&
-          !popupRef.current.contains(event.target as Node)
-        ) {
+        if (popupRef.current && !popupRef.current.contains(event.target as Node)) {
           setPopupVisible(false);
         }
       };
@@ -61,18 +56,15 @@ function DropdownBtn({ text, options, width = 'auto' }: DropdownBtnProps) {
       <Button
         className="main-btn d-flex justify-content-between"
         style={{ width }}
-        onClick={() => toggleOptions()}
+        onClick={() => {
+          toggleOptions();
+        }}
       >
         {text}
         <span className="btn-arrow ml-auto">▼</span>
       </Button>
 
-      <div
-        className={
-          'options-popup d-flex flex-column ' +
-          (popupVisible ? 'd-block' : 'd-none')
-        }
-      >
+      <div className={'options-popup d-flex flex-column ' + (popupVisible ? 'd-block' : 'd-none')}>
         {optionsElements}
       </div>
     </div>

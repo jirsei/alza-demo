@@ -9,14 +9,9 @@ interface ProductCardProps {
 }
 
 function ProductCard({ product }: ProductCardProps) {
-  const optionNames = [
-    'Koupit zrychleně',
-    'Porovnat',
-    'Hlídat',
-    'Přidat do seznamu',
-  ];
+  const optionNames = ['Koupit zrychleně', 'Porovnat', 'Hlídat', 'Přidat do seznamu'];
 
-  const dropdownOptions = optionNames.map((value: string, _index: number) => ({
+  const dropdownOptions = optionNames.map((value: string) => ({
     name: value,
     action: () => {
       console.log('"' + value + '" clicked for "' + product.name + '"');
@@ -46,8 +41,7 @@ function ProductCard({ product }: ProductCardProps) {
             {/* since no product has product.cprice filled, product.price is used and filtered for less than 1000. Correct solution is in comment below */}
             <div
               className={
-                'original m-0 p-0 ' +
-                (product.priceNoCurrency < 1000 ? 'd-inline-block' : 'd-none')
+                'original m-0 p-0 ' + (product.priceNoCurrency < 1000 ? 'd-inline-block' : 'd-none')
               }
             >
               {product.price}
@@ -61,11 +55,7 @@ function ProductCard({ product }: ProductCardProps) {
             </div> */}
           </div>
           <div className="product-actions p-0 col-7 align-content-center">
-            <DropdownBtn
-              text={'Koupit'}
-              options={dropdownOptions}
-              width="100%"
-            ></DropdownBtn>
+            <DropdownBtn text={'Koupit'} options={dropdownOptions} width="100%"></DropdownBtn>
           </div>
         </div>
         <div
