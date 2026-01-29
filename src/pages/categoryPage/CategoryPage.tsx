@@ -14,10 +14,7 @@ function CategoryPage() {
 
   const sortedProducts = useMemo(() => sortProducts(products, sortType), [products, sortType]);
 
-  const carouselProducts = useMemo(
-    () => sortProducts(products, 'best').slice(0, 4), //TODO change to like 10
-    [products],
-  );
+  const carouselProducts = useMemo(() => sortProducts(products, 'best').slice(0, 10), [products]);
 
   // transform products into cards
   const productCards = [...sortedProducts].map((value: Product) => (
