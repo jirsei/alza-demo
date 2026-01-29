@@ -18,11 +18,11 @@ function CarouselCard({ product, position }: CarouselCardProps) {
         <div className="product-image m-0 mb-2 d-flex justify-content-center">
           <img className="p-0" src={product.img} alt="Product image" />
         </div>
-        <div className="product-name m-0 mb-2">
-          <h6 className="m-0 p-0">{product.name}</h6>
-        </div>
         <div className="product-rating mb-2">
           <StarRating rating={product.rating}></StarRating>
+        </div>
+        <div className="product-name m-0 mb-2">
+          <h6 className="m-0 p-0">{product.name}</h6>
         </div>
         <div className="product-description m-0 mb-2" title={product.spec}>
           {product.spec}

@@ -3,6 +3,8 @@ import Col from 'react-bootstrap/esm/Col';
 import CarouselCard from './carouselCard/CarouselCard';
 import type { Product } from '@/types/product';
 import { useEffect, useRef, useState, type ReactElement } from 'react';
+import { Button } from 'react-bootstrap';
+import { modulo } from '@/utils/mathUtils';
 
 interface CarouselProps {
   products: Product[];
@@ -24,13 +26,12 @@ function Carousel({ products }: CarouselProps) {
 
   useEffect(() => {
     if (products.length > 0) {
-      console.log('products', products); // TODO delete
-
       const newCards: ReactElement[] = [];
 
       for (let index = 0; index < pageWidth * 3 + 1; index++) {
         const productIndex = page * pageWidth - pageWidth + index;
-        const product = { ...products[productIndex % products.length] };
+        const product = { ...products[modulo(productIndex, products.length)] };
+
         const productElement = (
           <CarouselCard
             key={productIndex}
@@ -41,11 +42,11 @@ function Carousel({ products }: CarouselProps) {
         newCards.push(productElement);
       }
 
+      console.log('page', page); //TODO delete
       console.log('newCards', newCards); //TODO delete
-
       setCards(newCards);
     }
-  }, [products]);
+  }, [products, pageWidth, page]);
 
   // get visible width
   useEffect(() => {
@@ -67,9 +68,16 @@ function Carousel({ products }: CarouselProps) {
 
   return (
     <Col className="carousel p-4">
+      <Button className="page-btn page-minus" onClick={() => setPage(page - 1)}>
+        <span className="btn-arrow ml-auto">◄</span>
+      </Button>
       <div ref={cardsRowRef} className="cards-row d-flex flex-row">
         {products.length > 0 ? cards : ''}
       </div>
+
+      <Button className="page-btn page-plus" onClick={() => setPage(page + 1)}>
+        <span className="btn-arrow ml-auto">►</span>
+      </Button>
     </Col>
   );
 }
