@@ -1,12 +1,17 @@
-import { render, queryByAttribute } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import App from './App';
 
 describe('App', () => {
-  it('renders the demo Vite text', () => {
-    const dom = render(<App />);
-    const getById = queryByAttribute.bind(null, 'id');
+  it('renders the header and content', () => {
+    const wrapper = render(<App />);
+    const header = wrapper.container.querySelector(
+      '#app-row-header',
+    ) as HTMLButtonElement;
+    const content = wrapper.container.querySelector(
+      '#app-row-header',
+    ) as HTMLButtonElement;
 
-    expect(getById(dom.container, 'app-row-header')).toBeInTheDocument();
-    expect(getById(dom.container, 'app-row-content')).toBeInTheDocument();
+    expect(header).toBeInTheDocument();
+    expect(content).toBeInTheDocument();
   });
 });
