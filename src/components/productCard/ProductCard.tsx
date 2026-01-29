@@ -1,13 +1,28 @@
-import { Col, Row } from 'react-bootstrap';
 import './ProductCard.scss';
+import Col from 'react-bootstrap/esm/Col';
 import StarRating from '@/components/starRating/StarRating';
 import type { Product } from '@/types/product';
+import DropdownBtn from '@/components/dropdownBtn/dropdownBtn';
 
 interface ProductCardProps {
   product: Product;
 }
 
 function ProductCard({ product }: ProductCardProps) {
+  const optionNames = [
+    'Koupit zrychleně',
+    'Porovnat',
+    'Hlídat',
+    'Přidat do seznamu',
+  ];
+
+  const dropdownOptions = optionNames.map((value: string, _index: number) => ({
+    name: value,
+    action: () => {
+      console.log('"' + value + '" clicked for "' + product.name + '"');
+    },
+  }));
+
   return (
     <Col className="product-card p-3 py-4 d-flex flex-column justify-content-between">
       <div className="product-card-top mb-2 flex-grow-1 overflow-hidden">
@@ -26,12 +41,31 @@ function ProductCard({ product }: ProductCardProps) {
           </div>
         </div>
         <div className="m-0 mb-2 d-flex flex-row">
-          <div className="product-price p-0 col-5 overflow-hidden text-nowrap">
-            <div className="actual m-0 p-0">3 453 Kč</div>
-            <div className="original m-0 p-0">3 453 Kč</div>
+          <div className="product-price p-0 col-5 align-content-center overflow-hidden text-nowrap">
+            <div className="actual m-0 p-0">{product.price}</div>
+            {/* since no product has product.cprice filled, product.price is used and filtered for less than 1000. Correct solution is in comment below */}
+            <div
+              className={
+                'original m-0 p-0 ' +
+                (product.priceNoCurrency < 1000 ? 'd-inline-block' : 'd-none')
+              }
+            >
+              {product.price}
+            </div>
+            {/* <div
+              className={
+                'original m-0 p-0 ' + (product.cprice ? 'd-inline-block' : 'd-none')
+              }
+            >
+              {product.cprice}
+            </div> */}
           </div>
-          <div className="product-actions p-0 col-7 overflow-hidden text-nowrap align-content-center border">
-            Koupit
+          <div className="product-actions p-0 col-7 align-content-center">
+            <DropdownBtn
+              text={'Koupit'}
+              options={dropdownOptions}
+              width="100%"
+            ></DropdownBtn>
           </div>
         </div>
         <div

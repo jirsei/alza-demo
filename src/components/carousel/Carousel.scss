@@ -1,0 +1,40 @@
+@use '@/styles/variables' as v;
+@use './carouselCard/CarouselCard.scss' as carouselCard;
+
+.carousel {
+  width: 100%;
+  background-color: v.$primary-color;
+  position: relative;
+
+  .page-btn {
+    $pageBtnHeight: 60px;
+    height: $pageBtnHeight;
+    padding: 10px;
+    z-index: 500;
+
+    & > .btn-arrow {
+      display: inline-block;
+      transform: scale(0.5, 2);
+    }
+
+    &.page-minus {
+      position: absolute;
+      top: calc(50% - $pageBtnHeight / 2);
+      left: 0;
+      border-radius: 0 5px 5px 0;
+    }
+
+    &.page-plus {
+      position: absolute;
+      top: calc(50% - $pageBtnHeight / 2);
+      right: 0;
+      border-radius: 5px 0 0 5px;
+    }
+  }
+
+  & > .cards-row {
+    height: carouselCard.$carousel-card-height;
+    overflow: hidden;
+    position: relative;
+  }
+}

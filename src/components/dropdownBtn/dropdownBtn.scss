@@ -1,0 +1,47 @@
+@use '@/styles/variables' as v;
+@use 'sass:color';
+
+.dropdown-btn {
+  position: relative;
+
+  & > .main-btn {
+    & > .btn-arrow {
+      display: inline-block;
+      transform: scale(1, 0.5);
+      margin-left: 6px;
+    }
+  }
+
+  & > .options-popup {
+    position: absolute;
+    top: 37px;
+    left: 0;
+    min-width: 100%;
+    width: auto;
+    border-radius: 5px;
+    overflow: hidden;
+    border: 1px solid v.$primary-color;
+    z-index: 1000;
+
+    & > .option-btn {
+      border-radius: 0;
+      border: none;
+
+      color: v.$primary-color;
+      background-color: v.$secondary-bg-color;
+      border-color: v.$primary-color;
+
+      &:hover {
+        color: v.$primary-color;
+        background-color: color.adjust(v.$secondary-bg-color, $lightness: -10%);
+        border-color: v.$primary-color;
+      }
+
+      &:active {
+        color: v.$primary-color;
+        background-color: color.adjust(v.$secondary-bg-color, $lightness: -20%);
+        border-color: v.$secondary-color;
+      }
+    }
+  }
+}

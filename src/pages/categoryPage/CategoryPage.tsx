@@ -1,50 +1,63 @@
-import { Row } from 'react-bootstrap';
 import './CategoryPage.scss';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import Row from 'react-bootstrap/esm/Row';
 import ProductCard from '@/components/productCard/ProductCard';
-import { getProducts } from '@/api/productsApi';
-import { useEffect, useState, type ReactNode } from 'react';
+import ProductCardPlaceholder from '@/components/productCardPlaceholder/ProductCardPlaceholder';
 import type { Product } from '@/types/product';
+import useProductsStore, { sortProducts } from '@/stores/ProductsStore';
+import Subcategories from '@/components/subcategories/Subcategories';
+import ProductTabs from '@/components/productTabs/ProductTabs';
+import Carousel from '@/components/carousel/Carousel';
 
 function CategoryPage() {
-  const [categoryName, setCategoryName] = useState<string | null>(null);
-  const [products, setProducts] = useState<Product[] | null>(null);
-  const [productCards, setProductCards] = useState<ReactNode[] | null>(null);
+  const { products, category, loading, sortType, fetchProducts } =
+    useProductsStore();
 
+  const sortedProducts = useMemo(
+    () => sortProducts(products, sortType),
+    [products, sortType],
+  );
+
+  const carouselProducts = useMemo(
+    () => sortProducts(products, 'best').slice(0, 4), //TODO change to like 10
+    [products],
+  );
+
+  // transform products into cards
+  const productCards = [...sortedProducts].map(
+    (value: Product, index: number) => (
+      <ProductCard product={value} key={index}></ProductCard>
+    ),
+  );
+
+  // generate loading placeholders
+  const placeholderCards = [...Array(24)].map(
+    (_value: undefined, index: number) => (
+      <ProductCardPlaceholder key={index}></ProductCardPlaceholder>
+    ),
+  );
+
+  // load products
   useEffect(() => {
-    getProducts()
-      .then((res) => {
-        setCategoryName(res.breadcrumbs[0].category.name);
-        setProducts(res.data);
-      })
-      .catch(console.error);
+    fetchProducts();
   }, []);
-
-  useEffect(() => {
-    if (products !== null) {
-      const cards = [...products].map((value: Product, index: number) => (
-        <ProductCard product={value} key={index}></ProductCard>
-      ));
-      setProductCards(cards);
-    }
-  }, [products]);
 
   return (
     <div className="category-page">
-      <Row id="category-page-header" className="p-4 mt-3">
-        <h3 className="category-page-name p-0">{categoryName}</h3>
-        {/* <h4 className="category-page-name">{categoryName}</h4> */}
+      <Row className="category-page-name p-4 mt-3">
+        <h3 className="p-0">{!category ? '\u00A0' : category}</h3>
       </Row>
-      <Row id="category-page-subcategories" className="p-3 px-4">
-        Subcategories
+      <Row className="category-page-subcategories p-3 pb-5 px-4">
+        <Subcategories></Subcategories>
       </Row>
-      <Row id="category-page-carousel" className="p-3 px-4">
-        Carousel
+      <Row className="category-page-carousel p-0">
+        <Carousel products={carouselProducts}></Carousel>
       </Row>
-      <Row id="category-page-tabs" className="p-3 px-4">
-        Tabs
+      <Row className="category-page-tabs p-0">
+        <ProductTabs></ProductTabs>
       </Row>
-      <Row id="category-page-products" className="p-3">
-        {productCards}
+      <Row className="category-page-products p-3">
+        {!productCards || loading ? placeholderCards : productCards}
       </Row>
     </div>
   );

@@ -1,6 +1,6 @@
 @use '@/styles/variables' as v;
 
-.product-card {
+.product-card-placeholder {
   $product-spacing: 4px;
 
   min-width: calc(50% - 2 * $product-spacing);
@@ -10,70 +10,31 @@
   margin: $product-spacing;
   border-radius: 5px;
 
-  & .product-card-top {
-    mask-image: linear-gradient(to bottom, black 90%, transparent);
-  }
-
-  & .product-name {
-    color: v.$primary-text-color;
-  }
-
-  & .product-description {
-    width: 100%;
-    color: v.$secondary-text-color;
-    font-size: small;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  & .product-image {
+  & > .spinner {
+    height: auto;
+    width: 50%;
+    margin: auto;
+    aspect-ratio: 1;
+    padding: 10px;
+    border-radius: 50%;
+    box-sizing: border-box;
     position: relative;
-    // background-color: v.$secondary-page-background-color;
-
-    & img {
-      width: 100%;
-      height: auto;
-      aspect-ratio: 1;
-      object-fit: contain;
-    }
-
-    & .product-rating {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 70%;
-    }
+    mask:
+      conic-gradient(#000 0 0) content-box exclude,
+      conic-gradient(#000 0 0);
+    filter: blur(12px);
   }
-
-  & .product-price {
-    & > .actual {
-      color: v.$price-text-color;
-      line-height: 1rem;
-    }
-
-    & > .original {
-      color: v.$secondary-text-color;
-      line-height: 1rem;
-      font-size: small;
-      display: inline-block;
-      position: relative;
-    }
-
-    & > .original::after {
-      content: '';
-      width: 100%;
-      position: absolute;
-      right: 0;
-      top: 50%;
-      border-bottom: 1px solid currentColor;
-      transform: skewY(-10deg);
-    }
+  & > .spinner:before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: conic-gradient(#0000 35%, #3333, #0000 65%);
+    animation: l1 1.5s linear infinite;
   }
-
-  & .product-stock {
-    color: v.$primary-text-color;
-    font-weight: bold;
-    font-size: small;
+  @keyframes l1 {
+    to {
+      rotate: 1turn;
+    }
   }
 
   @media only screen and (min-width: 576px) {
