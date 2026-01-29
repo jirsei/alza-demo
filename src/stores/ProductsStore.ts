@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import type { Product } from '@/types/product';
 import { getProducts } from '@/api/productsApi';
+import axios from 'axios';
 
 export type SortType = 'top' | 'best' | 'priceAsc' | 'priceDesc';
 
@@ -29,7 +30,7 @@ interface ProductsState {
   sortType: SortType;
   sortedProducts: Product[];
 
-  fetchProducts: () => void;
+  fetchProducts: () => Promise<void>;
   setSortType: (sort: SortType) => void;
 }
 
@@ -41,9 +42,13 @@ const useProductsStore = create<ProductsState>((set, get) => ({
   sortType: 'top',
   sortedProducts: [],
 
-  setSortType: (sortType) => set({ sortType }),
+  setSortType: (sortType) => {
+    set({ sortType });
+  },
 
   fetchProducts: async () => {
+    console.log('fetching products');
+
     if (!get().loading) {
       set({ loading: true, error: null });
 
@@ -52,13 +57,18 @@ const useProductsStore = create<ProductsState>((set, get) => ({
 
         set({
           category: res.breadcrumbs[0]?.category?.name || '',
-          products: res.data || [],
+          products: res.data,
           loading: false,
         });
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (err: any) {
+      } catch (err: unknown) {
+        let errorMessage = 'Something went wrong';
+
+        if (axios.isAxiosError<{ error?: string }>(err)) {
+          errorMessage = err.response?.data.error ?? errorMessage;
+        }
+
         set({
-          error: err.response?.data?.error || 'Something went wrong',
+          error: errorMessage,
           loading: false,
         });
         console.error(err);

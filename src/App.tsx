@@ -9,10 +9,7 @@ function App() {
 
   return (
     <>
-      <div
-        id="app-row-header"
-        className={'row-header ' + (isScrolled ? 'scrolled' : '')}
-      >
+      <div id="app-row-header" className={'row-header ' + (isScrolled ? 'scrolled' : '')}>
         <Container className="p-0">
           <AppHeader />
         </Container>

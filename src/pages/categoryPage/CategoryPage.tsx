@@ -1,5 +1,5 @@
 import './CategoryPage.scss';
-import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import { useEffect, useMemo } from 'react';
 import Row from 'react-bootstrap/esm/Row';
 import ProductCard from '@/components/productCard/ProductCard';
 import ProductCardPlaceholder from '@/components/productCardPlaceholder/ProductCardPlaceholder';
@@ -10,13 +10,9 @@ import ProductTabs from '@/components/productTabs/ProductTabs';
 import Carousel from '@/components/carousel/Carousel';
 
 function CategoryPage() {
-  const { products, category, loading, sortType, fetchProducts } =
-    useProductsStore();
+  const { products, category, loading, sortType, fetchProducts } = useProductsStore();
 
-  const sortedProducts = useMemo(
-    () => sortProducts(products, sortType),
-    [products, sortType],
-  );
+  const sortedProducts = useMemo(() => sortProducts(products, sortType), [products, sortType]);
 
   const carouselProducts = useMemo(
     () => sortProducts(products, 'best').slice(0, 4), //TODO change to like 10
@@ -24,23 +20,21 @@ function CategoryPage() {
   );
 
   // transform products into cards
-  const productCards = [...sortedProducts].map(
-    (value: Product, index: number) => (
-      <ProductCard product={value} key={index}></ProductCard>
-    ),
-  );
+  const productCards = [...sortedProducts].map((value: Product) => (
+    <ProductCard product={value} key={value.id}></ProductCard>
+  ));
 
   // generate loading placeholders
-  const placeholderCards = [...Array(24)].map(
-    (_value: undefined, index: number) => (
+  const placeholderCards = Array(24)
+    .fill(0)
+    .map((_value: undefined, index: number) => (
       <ProductCardPlaceholder key={index}></ProductCardPlaceholder>
-    ),
-  );
+    ));
 
   // load products
   useEffect(() => {
-    fetchProducts();
-  }, []);
+    void fetchProducts();
+  }, [fetchProducts]);
 
   return (
     <div className="category-page">
@@ -57,7 +51,7 @@ function CategoryPage() {
         <ProductTabs></ProductTabs>
       </Row>
       <Row className="category-page-products p-3">
-        {!productCards || loading ? placeholderCards : productCards}
+        {!productCards.length || loading ? placeholderCards : productCards}
       </Row>
     </div>
   );
